@@ -1,0 +1,66 @@
+Public Class ReverseNodes {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(k<=1){
+            return head;
+        }
+
+        List<ListNode> list=new ArrayList<>();
+        ListNode t=head;
+
+        int len=0;
+        while(t!=null){
+            t=t.next;
+            len++;
+        }
+
+        t=head;
+        while(t!=null){
+            ListNode curr=new ListNode(-1);
+            ListNode tc=curr;
+            for(int i=0;i<k;i++){
+                if(t==null){
+                    break;
+                }
+                ListNode newNode=new ListNode(t.val);
+                tc.next=newNode;
+                tc=newNode;
+                t=t.next;
+            }
+            tc.next=null;
+            list.add(curr.next);
+        }
+
+        System.out.println(list.size()+":"+len);
+        for(int i=0;i<list.size();i++){
+            len-=k;
+            if(len<0){
+                break;
+            }
+            list.set(i,reverse(list.get(i)));
+        }
+
+        ListNode res=new ListNode(-1);
+        t=res;
+        for(ListNode n:list){
+            while(n!=null){
+                ListNode newNode=new ListNode(n.val);
+                t.next=newNode;
+                t=newNode;
+                n=n.next;
+            }
+        }
+        return res.next;
+    }
+
+    public ListNode reverse(ListNode head){
+        ListNode t=null;
+        ListNode pre=head;
+        while(pre!=null){
+            ListNode next=pre.next;
+            pre.next=t;
+            t=pre;
+            pre=next;
+        }
+        return t;
+    }
+}
