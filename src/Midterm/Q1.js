@@ -1,47 +1,43 @@
+import java.util.HashSet;
+import java.util.Set;
+
 Public class Q1{
 //Time Complexity: 2 Space: 36.5
-   class Solution {
-       public List<List<String>> printTree(TreeNode root) {
-           List<List<String>> result = new ArrayList<>();
-           int dep = getDepth(root);
-           Queue<TreeNode> queue = new LinkedList<>();
-           queue.add(root);
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+ public boolean areConverging(ListNode n1,ListNode n2)
+    {
+        ListNode top=n1;
+        ListNode bottom=n2;
 
-           for(int i = 0;i < dep;i++) {
-               List<String> list = new ArrayList<>();
-               for(int j = 0;j < Math.pow(2, dep)-1;j++)
-                   list.add("");
-               List<Integer> index = new ArrayList<>();
-               getIndex(i, 0, list.size() - 1, index);
-               for(int j = 0;j < Math.pow(2, i);j++) {
-                   TreeNode temp = queue.poll();
-                   if(temp == null) {
-                       queue.add(temp);
-                       queue.add(temp);
-                   } else {
-                       list.set(index.get(j), ""+temp.val);
-                       queue.add(temp.left);
-                       queue.add(temp.right);
-                   }
-               }
-               result.add(list);
-           }
-           return result;
-       }
+        Set set = new HashSet<>();
 
-       public int getDepth(TreeNode root) {
-           if(root == null)
-               return 0;
-           return 1 + Math.max(getDepth(root.left), getDepth(root.right));
-       }
+        if(n1==null || n2==null)
+        {
+            return false;
+        }
 
-       public void getIndex(int num, int left, int right, List<Integer> index) {
-           int mid = (left + right) / 2;
-           if(num == 0)
-               index.add(mid);
-           else {
-               getIndex(num - 1, left, mid - 1, index);
-               getIndex(num - 1, mid + 1, right, index);
-           }
-       }
-   }
+        while(top!=null)
+        {
+            set.add(top);
+            top = top.next;
+        }
+
+        while(bottom!=null)
+        {
+            if(set.contains(bottom))
+            {
+                return true;
+            }
+            set.add(bottom);
+            bottom = bottom.next;
+        }
+
+        return false;
+    }
+
+ }
