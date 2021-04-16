@@ -12,7 +12,6 @@ public String longestCommonPrefix(String[] strs) {
 
         char[] chars = strs[0].toCharArray();
 
-        //首先尝试第0位
         int index = 0;
 
         while(index < chars.length){
