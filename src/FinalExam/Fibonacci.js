@@ -2,7 +2,8 @@ public class Fibonacci {
     public int fib(int n){
         if(n<=1){
             return n;
-        }else{
+        }
+        else{
             return this.fib(n-1) + this.fib(n-2);
         }
 
